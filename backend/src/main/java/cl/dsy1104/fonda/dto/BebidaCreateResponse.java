@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class BebidaResponse {
+public class BebidaCreateResponse {
     private Long id;
     private String nombre;
     private TipoBebida tipoBebida;
@@ -19,5 +19,5 @@ public class BebidaResponse {
     private Double gradosAlcohol;
     private Boolean certificada;
     private Integer azucarPorLitro;
-    private boolean ventaRestringida;
+    private Boolean ventaRestringida;
 }

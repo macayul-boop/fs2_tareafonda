@@ -33,7 +33,7 @@ public class BebidaRequest {
 
     private Integer azucarPorLitro;
 
-    private boolean ventaRestringida;
+    private Boolean ventaRestringida;
 
 
     @AssertTrue(message = "Para tipo ALCOHOLICA, los grados de alcohol deben estar entre 0.5 y 45 y el azúcar debe ser nulo")
@@ -44,10 +44,13 @@ public class BebidaRequest {
         return true;
     }
 
-    @AssertTrue(message = "Para tipo SIN_ALCOHOL, el azúcar debe ser >= 0 y los grados de alcohol deben ser nulos")
+    @AssertTrue(message = "Para tipo SIN_ALCOHOL, el azúcar debe ser >= 0, los grados de alcohol deben ser nulos y la certificacion debe ser nulo")
     public boolean isValidSinAlcohol(){
         if(tipoBebida == TipoBebida.SIN_ALCOHOL){
-            return azucarPorLitro != null && azucarPorLitro >= 0 && gradosAlcohol == null;
+            return azucarPorLitro != null
+                    && azucarPorLitro >= 0
+                    && gradosAlcohol == null
+                    && certificada == null;
         }
         return true;
     }
