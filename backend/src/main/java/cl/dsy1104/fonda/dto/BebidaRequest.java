@@ -20,11 +20,11 @@ public class BebidaRequest {
     @NotNull(message = "El atributo 'volumen ml' es obligatorio")
     @Min(value = 100, message = "El rango del atributo 'volumen' debe de estar entre 100 y 3.000 mililitros")
     @Max(value = 3000, message = "El rango del atributo 'volumen' debe de estar entre 100 y 3.000 mililitros")
-    private int volumenMl;
+    private Integer volumenMl;
 
     @NotNull(message = "El atributo 'stock' es obligatorio")
     @Min(value = 0, message = "El atributo 'stock' debe ser igual o mayor a cero")
-    private int stock;
+    private Integer stock;
 
 
     private Double gradosAlcohol;
