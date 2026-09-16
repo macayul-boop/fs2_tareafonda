@@ -1,11 +1,11 @@
 package cl.dsy1104.fonda.exception;
 
+import cl.dsy1104.fonda.dto.ErrorResponse;
 import cl.dsy1104.fonda.dto.ErrorValidResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -35,6 +35,18 @@ public class GlobalExceptionHandler {
                 .build();
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ErrorResponse> notFound(NotFoundException ex, HttpServletRequest request){
+        ErrorResponse error = ErrorResponse.builder()
+                .fecha(LocalDateTime.now())
+                .estado(HttpStatus.NOT_FOUND.value())
+                .mensaje(ex.getMessage())
+                .ruta(request.getRequestURI())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
     }
 
 }

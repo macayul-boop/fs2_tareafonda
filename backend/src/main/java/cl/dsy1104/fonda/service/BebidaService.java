@@ -2,6 +2,7 @@ package cl.dsy1104.fonda.service;
 
 import cl.dsy1104.fonda.dto.BebidaRequest;
 import cl.dsy1104.fonda.dto.BebidaResponse;
+import cl.dsy1104.fonda.exception.NotFoundException;
 import cl.dsy1104.fonda.model.Bebida;
 import cl.dsy1104.fonda.model.TipoBebida;
 import cl.dsy1104.fonda.repository.BebidaRepository;
@@ -58,6 +59,41 @@ public class BebidaService {
                 .azucarPorLitro(azucar)
                 .ventaRestringida(request.getVentaRestringida())
                 .build();
+
+        Bebida bebidaGuardada = bebidaRepository.save(bebida);
+
+        return BebidaResponse.builder()
+                .id(bebidaGuardada.getId())
+                .nombre(bebidaGuardada.getNombre())
+                .tipoBebida(bebidaGuardada.getTipoBebida())
+                .volumenMl(bebidaGuardada.getVolumenMl())
+                .stock(bebidaGuardada.getStock())
+                .gradosAlcohol(bebidaGuardada.getGradosAlcohol())
+                .certificada(bebidaGuardada.getCertificada())
+                .azucarPorLitro(bebidaGuardada.getAzucarPorLitro())
+                .ventaRestringida(bebidaGuardada.getVentaRestringida())
+                .build();
+    }
+
+    // Actualizar una bebida
+    public BebidaResponse editarBebida(Long idBebida, BebidaRequest request){
+        // Validamos que la bebida exista
+        Bebida bebida = bebidaRepository.findById(idBebida)
+                .orElseThrow(()-> new NotFoundException("La bebida no existe"));
+
+        Double grados = (request.getTipoBebida() == TipoBebida.ALCOHOLICA) ? request.getGradosAlcohol() : null;
+        Boolean cert = (request.getTipoBebida() == TipoBebida.ALCOHOLICA) ? request.getCertificada() : null;
+        Integer azucar = (request.getTipoBebida() == TipoBebida.SIN_ALCOHOL) ? request.getAzucarPorLitro() : null;
+
+
+        bebida.setNombre(request.getNombre());
+        bebida.setTipoBebida(request.getTipoBebida());
+        bebida.setVolumenMl(request.getVolumenMl());
+        bebida.setStock(request.getStock());
+        bebida.setGradosAlcohol(grados);
+        bebida.setCertificada(cert);
+        bebida.setAzucarPorLitro(azucar);
+        bebida.setVentaRestringida(request.getVentaRestringida());
 
         Bebida bebidaGuardada = bebidaRepository.save(bebida);
 
