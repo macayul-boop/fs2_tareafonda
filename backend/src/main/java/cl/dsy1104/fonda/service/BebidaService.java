@@ -19,9 +19,15 @@ public class BebidaService {
     private final BebidaRepository bebidaRepository;
 
     // Leer todas las bebdia
-    public List<BebidaResponse> listarTodasBebidas(){
-        List<Bebida> listaBebidas = bebidaRepository.findAll();
+    public List<BebidaResponse> listarTodasBebidas(String nombre){
+        List<Bebida> listaBebidas;
         List<BebidaResponse> listaDtoBebida = new ArrayList<>();
+
+        if(nombre != null && !nombre.isBlank()){
+            listaBebidas = bebidaRepository.findByNombreContainingIgnoreCase(nombre);
+        }else{
+            listaBebidas = bebidaRepository.findAll();
+        }
 
         for (Bebida b: listaBebidas){
             BebidaResponse bDto = BebidaResponse.builder()

@@ -6,7 +6,6 @@ import cl.dsy1104.fonda.service.BebidaService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +20,10 @@ public class BebidaController {
 
     // Leer todas las bebidas
     @GetMapping
-    public ResponseEntity<List<BebidaResponse>> leerTodasBebidas(){
-        List<BebidaResponse> listResponse = bebidaService.listarTodasBebidas();
+    public ResponseEntity<List<BebidaResponse>> leerTodasBebidas(
+            @RequestParam(name = "nombre", required = false) String nombre
+    ){
+        List<BebidaResponse> listResponse = bebidaService.listarTodasBebidas(nombre);
         if(listResponse.isEmpty()) return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         return ResponseEntity.ok(listResponse);
     }
