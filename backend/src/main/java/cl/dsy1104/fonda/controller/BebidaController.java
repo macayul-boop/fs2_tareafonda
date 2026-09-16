@@ -52,6 +52,13 @@ public class BebidaController {
         return ResponseEntity.ok(response);
     }
 
+    // Editar la restriccion de una bebida
+    @PatchMapping("/{idBebida}/restriccion")
+    public ResponseEntity<BebidaResponse> editarRestriccionBebida(@PathVariable Long idBebida){
+        BebidaResponse response = bebidaService.editarRestriccionBebida(idBebida);
+        return ResponseEntity.ok(response);
+    }
+
     // ELiminar una bebida
     @DeleteMapping("/{idBebida}")
     public ResponseEntity<Void> eliminarBebida(@PathVariable Long idBebida){

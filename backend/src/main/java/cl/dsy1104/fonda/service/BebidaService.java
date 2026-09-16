@@ -134,6 +134,28 @@ public class BebidaService {
                 .build();
     }
 
+    // Modificar la restriccion de una bebida
+    public BebidaResponse editarRestriccionBebida(Long idBebida){
+        // Validamos que exista la bebida
+        Bebida bebida = bebidaRepository.findById(idBebida)
+                .orElseThrow(()-> new NotFoundException("La bebida no existe"));
+
+        bebida.setVentaRestringida(true);
+        Bebida bebidaGuardada = bebidaRepository.save(bebida);
+
+        return BebidaResponse.builder()
+                .id(bebidaGuardada.getId())
+                .nombre(bebidaGuardada.getNombre())
+                .tipoBebida(bebidaGuardada.getTipoBebida())
+                .volumenMl(bebidaGuardada.getVolumenMl())
+                .stock(bebidaGuardada.getStock())
+                .gradosAlcohol(bebidaGuardada.getGradosAlcohol())
+                .certificada(bebidaGuardada.getCertificada())
+                .azucarPorLitro(bebidaGuardada.getAzucarPorLitro())
+                .ventaRestringida(bebidaGuardada.getVentaRestringida())
+                .build();
+    }
+
     // Eliminar una bebida
     public void eliminarBebida(Long idBebida){
         // Validamos que si exista la bebida
@@ -144,4 +166,13 @@ public class BebidaService {
         bebidaRepository.deleteById(idBebida);
     }
 
+
+
+    // Metodo interno para luego utilizar en ventas
+    public Bebida buscarBebida(Long idBebida){
+        Bebida bebida = bebidaRepository.findById(idBebida)
+                .orElseThrow(()-> new NotFoundException("La bebida no existe"));
+
+        return bebida;
+    }
 }
