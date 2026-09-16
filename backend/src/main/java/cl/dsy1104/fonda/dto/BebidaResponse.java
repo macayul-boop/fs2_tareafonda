@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class BebidaCreateResponse {
+public class BebidaResponse {
     private Long id;
     private String nombre;
     private TipoBebida tipoBebida;

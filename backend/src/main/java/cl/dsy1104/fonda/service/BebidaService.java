@@ -1,7 +1,7 @@
 package cl.dsy1104.fonda.service;
 
 import cl.dsy1104.fonda.dto.BebidaRequest;
-import cl.dsy1104.fonda.dto.BebidaCreateResponse;
+import cl.dsy1104.fonda.dto.BebidaResponse;
 import cl.dsy1104.fonda.model.Bebida;
 import cl.dsy1104.fonda.model.TipoBebida;
 import cl.dsy1104.fonda.repository.BebidaRepository;
@@ -18,12 +18,12 @@ public class BebidaService {
     private final BebidaRepository bebidaRepository;
 
     // Leer todas las bebdia
-    public List<BebidaCreateResponse> listarTodasBebidas(){
+    public List<BebidaResponse> listarTodasBebidas(){
         List<Bebida> listaBebidas = bebidaRepository.findAll();
-        List<BebidaCreateResponse> listaDtoBebida = new ArrayList<>();
+        List<BebidaResponse> listaDtoBebida = new ArrayList<>();
 
         for (Bebida b: listaBebidas){
-            BebidaCreateResponse bDto = BebidaCreateResponse.builder()
+            BebidaResponse bDto = BebidaResponse.builder()
                     .id(b.getId())
                     .nombre(b.getNombre())
                     .tipoBebida(b.getTipoBebida())
@@ -42,7 +42,7 @@ public class BebidaService {
     }
 
     // Crear una bebida
-    public BebidaCreateResponse crearBebida(BebidaRequest request){
+    public BebidaResponse crearBebida(BebidaRequest request){
 
         Double grados = (request.getTipoBebida() == TipoBebida.ALCOHOLICA) ? request.getGradosAlcohol() : null;
         Boolean cert = (request.getTipoBebida() == TipoBebida.ALCOHOLICA) ? request.getCertificada() : null;
@@ -61,7 +61,7 @@ public class BebidaService {
 
         Bebida bebidaGuardada = bebidaRepository.save(bebida);
 
-        return BebidaCreateResponse.builder()
+        return BebidaResponse.builder()
                 .id(bebidaGuardada.getId())
                 .nombre(bebidaGuardada.getNombre())
                 .tipoBebida(bebidaGuardada.getTipoBebida())
