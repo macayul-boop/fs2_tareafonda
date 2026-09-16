@@ -29,22 +29,22 @@ public class Bebida {
     private TipoBebida tipoBebida;
 
     @Column(name = "volumen_ml", nullable = false)
-    private int volumenMl;
+    private Integer volumenMl;
 
     @Column(name = "stock", nullable = false)
-    private int stock;
+    private Integer stock;
 
     @Column(name = "grados_alcohol")
     private Double gradosAlcohol;
 
     @Column(name = "certificada")
-    private boolean certificada;
+    private Boolean certificada;
 
     @Column(name = "azucar_por_litro")
     private Integer azucarPorLitro;
 
     @Column(name = "venta_restringida", nullable = false)
-    private boolean ventaRestringida;
+    private Boolean ventaRestringida;
 
     @OneToMany(mappedBy = "idBebida")
     private List<Venta> ventas = new ArrayList<>();
