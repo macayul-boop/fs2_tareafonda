@@ -42,6 +42,24 @@ public class BebidaService {
         return listaDtoBebida;
     }
 
+    // Leer una bebida
+    public BebidaResponse leerUnaBebidaPorId(Long idBebida){
+        Bebida bebida = bebidaRepository.findById(idBebida)
+                .orElseThrow(()-> new NotFoundException("La bebida no existe"));
+
+        return BebidaResponse.builder()
+                .id(bebida.getId())
+                .nombre(bebida.getNombre())
+                .tipoBebida(bebida.getTipoBebida())
+                .volumenMl(bebida.getVolumenMl())
+                .stock(bebida.getStock())
+                .gradosAlcohol(bebida.getGradosAlcohol())
+                .certificada(bebida.getCertificada())
+                .azucarPorLitro(bebida.getAzucarPorLitro())
+                .ventaRestringida(bebida.getVentaRestringida())
+                .build();
+    }
+
     // Crear una bebida
     public BebidaResponse crearBebida(BebidaRequest request){
 

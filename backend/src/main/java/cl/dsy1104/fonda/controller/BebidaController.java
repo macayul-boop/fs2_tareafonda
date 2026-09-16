@@ -27,6 +27,13 @@ public class BebidaController {
         return ResponseEntity.ok(listResponse);
     }
 
+    // Leer una bebida por id
+    @GetMapping("/{idBebida}")
+    public ResponseEntity<BebidaResponse> leerBebidaPorId(@PathVariable Long idBebida){
+        BebidaResponse response = bebidaService.leerUnaBebidaPorId(idBebida);
+        return ResponseEntity.ok(response);
+    }
+
     // Crear una bebida
     @PostMapping
     public ResponseEntity<BebidaResponse> crearBebida(@Valid @RequestBody BebidaRequest request){
