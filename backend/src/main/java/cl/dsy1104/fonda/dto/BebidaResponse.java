@@ -19,5 +19,5 @@ public class BebidaResponse {
     private Double gradosAlcohol;
     private Boolean certificada;
     private Integer azucarPorLitro;
-    private boolean ventaRestringida;
+    private Boolean ventaRestringida;
 }
