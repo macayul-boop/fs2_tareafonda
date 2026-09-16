@@ -19,9 +19,15 @@ public class BebidaService {
     private final BebidaRepository bebidaRepository;
 
     // Leer todas las bebdia
-    public List<BebidaResponse> listarTodasBebidas(){
-        List<Bebida> listaBebidas = bebidaRepository.findAll();
+    public List<BebidaResponse> listarTodasBebidas(String nombre){
+        List<Bebida> listaBebidas;
         List<BebidaResponse> listaDtoBebida = new ArrayList<>();
+
+        if(nombre != null && !nombre.isBlank()){
+            listaBebidas = bebidaRepository.findByNombreContainingIgnoreCase(nombre);
+        }else{
+            listaBebidas = bebidaRepository.findAll();
+        }
 
         for (Bebida b: listaBebidas){
             BebidaResponse bDto = BebidaResponse.builder()
@@ -40,6 +46,24 @@ public class BebidaService {
         }
 
         return listaDtoBebida;
+    }
+
+    // Leer una bebida
+    public BebidaResponse leerUnaBebidaPorId(Long idBebida){
+        Bebida bebida = bebidaRepository.findById(idBebida)
+                .orElseThrow(()-> new NotFoundException("La bebida no existe"));
+
+        return BebidaResponse.builder()
+                .id(bebida.getId())
+                .nombre(bebida.getNombre())
+                .tipoBebida(bebida.getTipoBebida())
+                .volumenMl(bebida.getVolumenMl())
+                .stock(bebida.getStock())
+                .gradosAlcohol(bebida.getGradosAlcohol())
+                .certificada(bebida.getCertificada())
+                .azucarPorLitro(bebida.getAzucarPorLitro())
+                .ventaRestringida(bebida.getVentaRestringida())
+                .build();
     }
 
     // Crear una bebida
