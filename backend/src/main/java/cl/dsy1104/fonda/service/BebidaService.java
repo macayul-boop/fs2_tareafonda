@@ -110,4 +110,14 @@ public class BebidaService {
                 .build();
     }
 
+    // Eliminar una bebida
+    public void eliminarBebida(Long idBebida){
+        // Validamos que si exista la bebida
+        if(!bebidaRepository.existsById(idBebida)){
+            throw new NotFoundException("La bebida no existe");
+        }
+
+        bebidaRepository.deleteById(idBebida);
+    }
+
 }
