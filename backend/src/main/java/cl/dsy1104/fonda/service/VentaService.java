@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +27,29 @@ public class VentaService {
 
     @Value("${fonda.limite-unidades-por-cliente}")
     private Integer limiteBebidas;
+
+    // Leer todas las ventas
+    public List<VentaResponse> listarTodas(){
+        List<Venta> listaVentas = ventaRepository.findAll();
+        List<VentaResponse> listaResponse = new ArrayList<>();
+
+        for( Venta v : listaVentas){
+            VentaResponse response = VentaResponse.builder()
+                    .id(v.getId())
+                    .idBebida(v.getIdBebida().getId())
+                    .total(v.getTotal())
+                    .unidades(v.getUnidades())
+                    .estado(v.getEstado())
+                    .motivo(v.getMotivo())
+                    .fecha(v.getFecha())
+                    .build();
+
+            listaResponse.add(response);
+        }
+
+        return listaResponse;
+    }
+
 
     // Crear una venta
     public VentaResponse crearVenta(VentaRequest request){
@@ -76,6 +101,7 @@ public class VentaService {
 
         return VentaResponse.builder()
                 .id(ventaGuardada.getId())
+                .idBebida(ventaGuardada.getIdBebida().getId())
                 .unidades(ventaGuardada.getUnidades())
                 .total(ventaGuardada.getTotal())
                 .estado(ventaGuardada.getEstado())
