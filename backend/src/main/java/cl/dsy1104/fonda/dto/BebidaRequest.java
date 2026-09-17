@@ -33,6 +33,7 @@ public class BebidaRequest {
 
     private Integer azucarPorLitro;
 
+    @NotNull(message = "El atributo 'venta restingida' es obligatorio")
     private Boolean ventaRestringida;
 
 

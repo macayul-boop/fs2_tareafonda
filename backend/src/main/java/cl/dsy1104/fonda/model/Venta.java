@@ -25,7 +25,7 @@ public class Venta {
     private Bebida idBebida;
 
     @Column(name = "unidades", nullable = false)
-    private int unidades;
+    private Integer unidades;
 
     @Column(name = "total", nullable = false)
     private int total;
