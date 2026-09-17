@@ -1,5 +1,3 @@
-import { Container } from "react-bootstrap";
-
 /**
  * Estructura sugerida de la interfaz. Cada bloque es un componente propio
  * dentro de src/components/:
