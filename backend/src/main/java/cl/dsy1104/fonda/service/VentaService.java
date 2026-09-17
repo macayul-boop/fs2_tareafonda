@@ -3,6 +3,7 @@ package cl.dsy1104.fonda.service;
 import cl.dsy1104.fonda.dto.VentaRequest;
 import cl.dsy1104.fonda.dto.VentaResponse;
 import cl.dsy1104.fonda.exception.ConflictoException;
+import cl.dsy1104.fonda.exception.NotFoundException;
 import cl.dsy1104.fonda.model.Bebida;
 import cl.dsy1104.fonda.model.EstadoVenta;
 import cl.dsy1104.fonda.model.TipoBebida;
@@ -48,6 +49,22 @@ public class VentaService {
         }
 
         return listaResponse;
+    }
+
+    // Leer una venta
+    public VentaResponse listarVenta(Long idVenta){
+        Venta response = ventaRepository.findById(idVenta)
+                .orElseThrow(()-> new NotFoundException("La venta no existe"));
+
+        return VentaResponse.builder()
+                .id(response.getId())
+                .idBebida(response.getIdBebida().getId())
+                .total(response.getTotal())
+                .unidades(response.getUnidades())
+                .estado(response.getEstado())
+                .motivo(response.getMotivo())
+                .fecha(response.getFecha())
+                .build();
     }
 
 
@@ -110,6 +127,8 @@ public class VentaService {
                 .build();
     }
 
+
+    
 
 
 }
