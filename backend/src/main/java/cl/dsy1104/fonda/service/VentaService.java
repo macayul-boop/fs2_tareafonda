@@ -128,7 +128,13 @@ public class VentaService {
     }
 
 
-    
+    // Eliminar una venta
+    public void eliminarVenta(Long idVenta){
+        if(!ventaRepository.existsById(idVenta)){
+            throw new NotFoundException("La venta no existe");
+        }
+        ventaRepository.deleteById(idVenta);
+    }
 
 
 }
