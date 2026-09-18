@@ -16,6 +16,7 @@ public class VentaResponse {
 
     private Long id;
     private Long idBebida;
+    private String nombreBebida;
     private Integer unidades;
     private int total;
     private EstadoVenta estado;

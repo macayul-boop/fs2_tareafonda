@@ -31,13 +31,14 @@ public class VentaService {
 
     // Leer todas las ventas
     public List<VentaResponse> listarTodas(){
-        List<Venta> listaVentas = ventaRepository.findAll();
+        List<Venta> listaVentas = ventaRepository.findAllConBebida();
         List<VentaResponse> listaResponse = new ArrayList<>();
 
         for( Venta v : listaVentas){
             VentaResponse response = VentaResponse.builder()
                     .id(v.getId())
                     .idBebida(v.getIdBebida().getId())
+                    .nombreBebida(v.getIdBebida().getNombre())
                     .total(v.getTotal())
                     .unidades(v.getUnidades())
                     .estado(v.getEstado())
@@ -59,6 +60,7 @@ public class VentaService {
         return VentaResponse.builder()
                 .id(response.getId())
                 .idBebida(response.getIdBebida().getId())
+                .nombreBebida(response.getIdBebida().getNombre())
                 .total(response.getTotal())
                 .unidades(response.getUnidades())
                 .estado(response.getEstado())
@@ -119,6 +121,7 @@ public class VentaService {
         return VentaResponse.builder()
                 .id(ventaGuardada.getId())
                 .idBebida(ventaGuardada.getIdBebida().getId())
+                .nombreBebida(ventaGuardada.getIdBebida().getNombre())
                 .unidades(ventaGuardada.getUnidades())
                 .total(ventaGuardada.getTotal())
                 .estado(ventaGuardada.getEstado())
