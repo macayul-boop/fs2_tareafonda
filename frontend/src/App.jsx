@@ -10,14 +10,21 @@
  * Ningun componente calcula precios ni decide si una venta se autoriza:
  * esos datos vienen del backend.
  */
-export default function App() {
-  return (
-    <Container className="py-4">
-      <h1 className="mb-1">Fonda San Belarmino</h1>
-      <p className="text-muted">Control de bebidas y ventas</p>
+import { useState } from 'react';
+import Header from './componentes/Header';
+import './app.css'
 
-      {/* TODO: montar aqui los componentes de la interfaz. */}
+export default function App() {
+
+  const [seccion, setSeccion] = useState('bebida')
+
+  return (
+    <div>
+      <Header onClick1={()=> setSeccion('bebida')} onCLick2={()=> setSeccion('venta')}/>
+      
+      
+
       <p>Frontend pendiente. Revisa el enunciado en README.md.</p>
-    </Container>
+    </div>
   );
 }
