@@ -12,6 +12,7 @@
  */
 import { useState } from 'react';
 import Header from './componentes/Header';
+import VistaBebida from './componentes/VistaBebida';
 import './app.css'
 
 export default function App() {
@@ -22,9 +23,11 @@ export default function App() {
     <div>
       <Header onClick1={()=> setSeccion('bebida')} onCLick2={()=> setSeccion('venta')}/>
       
-      
+      <main className='w-full px-5'>
+        {seccion === 'bebida' && <VistaBebida/>}
+        {seccion === 'venta' && <p>Se tiene que remplazar por la vista de venta</p>}
+      </main>
 
-      <p>Frontend pendiente. Revisa el enunciado en README.md.</p>
     </div>
   );
 }
