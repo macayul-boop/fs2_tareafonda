@@ -1,7 +1,7 @@
 // Unico punto del frontend que conoce la direccion del backend.
 // Los componentes importan estas funciones y no usan fetch directamente.
 
-const API = import.meta.env.VITE_API_URL ?? "http://localhost:8080/api";
+const API = import.meta.env.VITE_API_URL ?? "http://localhost:8080/api/bebida";
 
 /** Lanza un error con el cuerpo de la respuesta cuando el status no es 2xx. */
 async function pedir(ruta, opciones = {}) {
@@ -22,18 +22,31 @@ async function pedir(ruta, opciones = {}) {
 export function listarBebidas(nombre) {
   // TODO: GET /bebidas, agregando ?nombre= cuando venga el filtro.
   // El filtrado lo hace el servidor, no este archivo.
+  return pedir('')
 }
 
 export function crearBebida(datos) {
   // TODO: POST /bebidas
+  return pedir('', {
+    method: 'POST',
+    body: JSON.stringify(datos)
+  })  
+
 }
 
 export function actualizarBebida(id, datos) {
   // TODO: PUT /bebidas/{id}
+  return pedir(`/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(datos)
+  })
 }
 
-export function eliminarBebida(id) {
+export function eliminarBebidaApi(id) {
   // TODO: DELETE /bebidas/{id}
+  return pedir(`/${id}`, {
+    method: 'DELETE'
+  })
 }
 
 export function restringirVenta(id) {

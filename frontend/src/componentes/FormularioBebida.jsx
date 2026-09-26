@@ -72,7 +72,7 @@ function FormularioBebida({onGuardar, bebidaEditar, cancelarEditar}){
 
 
         let bebida = {
-            "id": bebidaEditar ? bebidaEditar.id : Date.now(),
+            "id": bebidaEditar ? bebidaEditar.id : null,
             "nombre": nombre,
             "tipoBebida": tipoBebida,
             "volumenMl": volumenMlConvertido,
@@ -166,9 +166,9 @@ function FormularioBebida({onGuardar, bebidaEditar, cancelarEditar}){
                     <InputTexto label={"Volumen ML"} value={volumenMl} placeholder={"300"} onChange={(e) => setVolumenMl(e.target.value)} error={errores.volumenMl}/>
                     <InputRadio label={"Venta restringuida"} value={ventaRestringuida} nombre={"ventaRestringuida"} label1={"Si"} label2={"No"} onChange1={()=> setVentaRestringuida(true)} onChange2={()=> setVentaRestringuida(false)} error={errores.ventaRestringuida}/>
                 </div>
-                <div>
+                <div className="mb-2.5">
                     <label>Tipo Bebida</label>
-                    <select value={tipoBebida} onChange={(e)=> setTipoBebida(e.target.value)} className="w-full border border-gray-300 rounded-lg px-4 py-2" name="tipoBebida">
+                    <select value={tipoBebida} onChange={(e)=> setTipoBebida(e.target.value)} className="w-full border border-gray-300 rounded-lg  focus:border-[#2563eb] focus:ring-1 focus:ring-[#2563eb] focus:outline-none px-4 py-2" name="tipoBebida">
                         <option value="">Sin seleccionar</option>
                         <option value="ALCOHOLICA">Alcoholica</option>
                         <option value="SIN_ALCOHOL">Sin alcohol</option>

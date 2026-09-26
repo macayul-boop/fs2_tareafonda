@@ -13,6 +13,7 @@
 import { useState } from 'react';
 import Header from './componentes/Header';
 import VistaBebida from './componentes/VistaBebida';
+import VistaVenta from './componentes/VistaVenta';
 import './app.css'
 
 export default function App() {
@@ -25,7 +26,7 @@ export default function App() {
       
       <main className='w-full px-5'>
         {seccion === 'bebida' && <VistaBebida/>}
-        {seccion === 'venta' && <p>Se tiene que remplazar por la vista de venta</p>}
+        {seccion === 'venta' && <VistaVenta/>}
       </main>
 
     </div>

@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import FormularioBebida from "./FormularioBebida"
 import Bebida from "./Bebida"
 import DetalleBebida from "./DetalleBebida"
+import { listarBebidas, crearBebida, actualizarBebida, eliminarBebidaApi } from "../services/api"
 
 const productosIniciales = [
     {
@@ -52,18 +53,34 @@ const productosIniciales = [
 
 function VistaBebida(){
 
-    const [bebidas, setBebidas] = useState(productosIniciales)
+    const [bebidas, setBebidas] = useState([])
     const [bebidaEditada, setBebidaEditada] = useState(null)
     const [verBebida, setVerBebida] = useState([])
 
+    useEffect(()=>{
+        listarBebidas()
+            .then((data)=>{
+                setBebidas(data)
+            })
+            .catch((err)=> console.error("Hay un error: ", err))
+    }, [])    
+
     // Crear o Editar bebida
-    const guardarProducto = (producto)=>{
-        if(bebidaEditada){
-            setBebidas(bebidas.map(b => b.id === producto.id ? producto : b))
-            setBebidaEditada(null)
-        }else{
-            setBebidas([...bebidas, producto])
+    const guardarProducto = async (producto)=>{
+
+        try {
+            if(bebidaEditada){
+                const bebidaActualizada = await actualizarBebida(producto.id, producto)
+                setBebidas(bebidas.map(b => b.id === bebidaActualizada.id ? bebidaActualizada : b))
+                setBebidaEditada(null)
+            }else{
+                const bebidaCreada = await crearBebida(producto)
+                setBebidas([...bebidas, bebidaCreada])
+            }
+        } catch (error) {
+            console.error("Ocurrio un error: ", error)
         }
+        
     }
 
     // Cancelar la accion de ediatr
@@ -72,8 +89,13 @@ function VistaBebida(){
     }
 
     // Eliminar una bebida
-    const eliminarBebida = (idBebida)=>{
-        setBebidas(bebidas.filter(b => b.id !== idBebida));
+    const eliminarBebida = async (idBebida)=>{
+        try {
+            await eliminarBebidaApi(idBebida)
+            setBebidas(bebidas.filter(b => b.id !== idBebida));
+        } catch (error) {
+            console.error("Ocurrio un error: ", error)
+        }
     }
 
     // Mostrar los detalles de una bebida
