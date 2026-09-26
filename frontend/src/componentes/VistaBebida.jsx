@@ -1,6 +1,7 @@
 import { useState } from "react"
 import FormularioBebida from "./FormularioBebida"
 import Bebida from "./Bebida"
+import DetalleBebida from "./DetalleBebida"
 
 const productosIniciales = [
     {
@@ -53,6 +54,7 @@ function VistaBebida(){
 
     const [bebidas, setBebidas] = useState(productosIniciales)
     const [bebidaEditada, setBebidaEditada] = useState(null)
+    const [verBebida, setVerBebida] = useState([])
 
     const guardarProducto = (producto)=>{
         if(bebidaEditada){
@@ -65,6 +67,17 @@ function VistaBebida(){
 
     const cancelarEditar = () => {
         setBebidaEditada(null)
+    }
+
+    const detalleProducto = (producto) =>{
+        const productoExiste = verBebida.find(p => p.id === producto.id)
+        if(productoExiste !== undefined) return
+        setVerBebida([...verBebida, producto])
+    }
+
+    const ocultarProducto = (idProducto) =>{
+        const nuevoLista = verBebida.filter( b => b.id !== idProducto);
+        setVerBebida(nuevoLista)
     }
 
     return(
@@ -89,9 +102,15 @@ function VistaBebida(){
                             tipo={value.tipoBebida} 
                             volumen={value.volumenMl}  
                             onEditar={()=> setBebidaEditada(value)}
+                            onVer={()=> detalleProducto(value)}
                         />
                     ))}
                 </div>
+                <section className="mt-10 flex flex-col gap-4">
+                    {verBebida.map((value, key)=>(
+                        <DetalleBebida bebida={value} key={key} onOcultar={()=> ocultarProducto(value.id)}/>
+                    ))}
+                </section>
             </section>
         </section>
     )
