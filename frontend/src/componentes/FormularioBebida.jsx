@@ -153,20 +153,22 @@ function FormularioBebida({onGuardar, bebidaEditar, cancelarEditar}){
     }
 
     return(
-        <form className="max-w-2xl mx-auto">
-            <h2 className="font-semibold text-lg text-center">Bebida</h2>
+        <form className="max-w-2xl mx-auto shadow-sm p-4 rounded-2xl">
+            <h2 className="text-[#0f172a] text-lg text-center">
+                {bebidaEditar ? 'Editar Bebida': 'Crear Bebida'}
+            </h2>
             <div>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-1.5">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-2.5">
                     <InputTexto label={"Nombre"} value={nombre} placeholder={"nombre"} onChange={(e) => setNombre(e.target.value)} error={errores.nombre}/>
                     <InputTexto label={"Stock"} value={stock} placeholder={"0"} onChange={(e) => setStock(e.target.value)} error={errores.stock}/>
                 </div>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-1.5">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-2.5">
                     <InputTexto label={"Volumen ML"} value={volumenMl} placeholder={"300"} onChange={(e) => setVolumenMl(e.target.value)} error={errores.volumenMl}/>
                     <InputRadio label={"Venta restringuida"} value={ventaRestringuida} nombre={"ventaRestringuida"} label1={"Si"} label2={"No"} onChange1={()=> setVentaRestringuida(true)} onChange2={()=> setVentaRestringuida(false)} error={errores.ventaRestringuida}/>
                 </div>
                 <div>
                     <label>Tipo Bebida</label>
-                    <select value={tipoBebida} onChange={(e)=> setTipoBebida(e.target.value)} className="w-full border border-gray-500 rounded-lg px-4 py-2" name="tipoBebida">
+                    <select value={tipoBebida} onChange={(e)=> setTipoBebida(e.target.value)} className="w-full border border-gray-300 rounded-lg px-4 py-2" name="tipoBebida">
                         <option value="">Sin seleccionar</option>
                         <option value="ALCOHOLICA">Alcoholica</option>
                         <option value="SIN_ALCOHOL">Sin alcohol</option>
@@ -175,7 +177,7 @@ function FormularioBebida({onGuardar, bebidaEditar, cancelarEditar}){
                 </div>
 
                 {tipoBebida === 'ALCOHOLICA' &&
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-1.5">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-2.5">
                         <InputTexto label={"Grados alcohol"} value={gradosAlcohol} placeholder={"0.5"} onChange={(e) => setGradosAlcohol(e.target.value)} error={errores.gradosAlcohol}/>
                         <InputRadio label={"Certificada"} value={certificada} nombre={"certificacion"} label1={"Si"} label2={"No"} onChange1={()=> setCertificada(true)} onChange2={()=> setCertificada(false)} error={errores.certificada}/>
                     </div>
@@ -189,11 +191,11 @@ function FormularioBebida({onGuardar, bebidaEditar, cancelarEditar}){
             </div>
             <div className="flex justify-end gap-3 mt-5">
                 {bebidaEditar && 
-                    <button onClick={(e)=> cancelar()} className="px-4 py-2 bg-gray-400 text-white font-semibold rounded-lg">
+                    <button onClick={(e)=> cancelar()} className="px-4 py-2 bg-gray-200 text-[#0f172a] font-semibold rounded-lg">
                         Cancelar
                     </button>
                 }
-                <button onClick={(e)=> submit(e)} className="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg">
+                <button onClick={(e)=> submit(e)} className="px-4 py-2 bg-[#2563eb] text-white font-semibold rounded-lg">
                     {bebidaEditar ? 'Editar Bebida' :'Guardar Bebida'}
                 </button>
             </div>

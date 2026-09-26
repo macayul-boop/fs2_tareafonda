@@ -20,8 +20,8 @@ export default function App() {
   const [seccion, setSeccion] = useState('bebida')
 
   return (
-    <div>
-      <Header onClick1={()=> setSeccion('bebida')} onCLick2={()=> setSeccion('venta')}/>
+    <div className='w-full h-screen text-[#0f172a]'>
+      <Header onClick1={()=> setSeccion('bebida')} onCLick2={()=> setSeccion('venta')} seccionActiva={seccion}/>
       
       <main className='w-full px-5'>
         {seccion === 'bebida' && <VistaBebida/>}

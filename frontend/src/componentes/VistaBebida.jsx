@@ -56,6 +56,7 @@ function VistaBebida(){
     const [bebidaEditada, setBebidaEditada] = useState(null)
     const [verBebida, setVerBebida] = useState([])
 
+    // Crear o Editar bebida
     const guardarProducto = (producto)=>{
         if(bebidaEditada){
             setBebidas(bebidas.map(b => b.id === producto.id ? producto : b))
@@ -65,33 +66,39 @@ function VistaBebida(){
         }
     }
 
+    // Cancelar la accion de ediatr
     const cancelarEditar = () => {
         setBebidaEditada(null)
     }
 
+    // Eliminar una bebida
+    const eliminarBebida = (idBebida)=>{
+        setBebidas(bebidas.filter(b => b.id !== idBebida));
+    }
+
+    // Mostrar los detalles de una bebida
     const detalleProducto = (producto) =>{
         const productoExiste = verBebida.find(p => p.id === producto.id)
         if(productoExiste !== undefined) return
         setVerBebida([...verBebida, producto])
     }
 
+    // Ocultar los detalles de una bebida
     const ocultarProducto = (idProducto) =>{
         const nuevoLista = verBebida.filter( b => b.id !== idProducto);
         setVerBebida(nuevoLista)
     }
 
     return(
-        <section className="max-w-6xl mt-5 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
-            <section>
-                <p className="text-center">Parte Izquierda</p>
+        <section className="max-w-7xl mt-10 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <section className="bg-white">
                 <FormularioBebida onGuardar={guardarProducto} bebidaEditar={bebidaEditada} cancelarEditar={cancelarEditar}/>
             </section>
-            <section>
-                <p className="text-center">Parte Derecha</p>
-                <div className="w-full h-10 mt-10 bg-gray-200 grid grid-cols-4 font-semibold">
-                    <p>Nombre</p>
-                    <p>Tipo bebida</p>
-                    <p>Volumen ml</p>
+            <section className="shadow-sm p-4 rounded-2xl">
+                <div className="w-full h-10 mt-10 bg-[#9d72e5] text-white grid grid-cols-4 font-semibold px-2">
+                    <p className="flex items-center">Nombre</p>
+                    <p className="flex items-center">Tipo bebida</p>
+                    <p className="flex items-center">Volumen ml</p>
                 </div>
                 <div className="">
                     {bebidas.map((value, key)=>(
@@ -103,6 +110,7 @@ function VistaBebida(){
                             volumen={value.volumenMl}  
                             onEditar={()=> setBebidaEditada(value)}
                             onVer={()=> detalleProducto(value)}
+                            onEliminar={()=> eliminarBebida(value.id)}
                         />
                     ))}
                 </div>
