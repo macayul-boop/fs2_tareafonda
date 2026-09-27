@@ -4,53 +4,6 @@ import Bebida from "./Bebida"
 import DetalleBebida from "./DetalleBebida"
 import { listarBebidas, crearBebida, actualizarBebida, eliminarBebidaApi } from "../services/api"
 
-const productosIniciales = [
-    {
-        "id": 1,
-        "nombre": "Chicha",
-        "tipoBebida": "ALCOHOLICA",
-        "volumenMl": 1000,
-        "stock": 40,
-        "gradosAlcohol": 12.0,
-        "certificada": false,
-        "azucarPorLitro": null,
-        "ventaRestringida": true
-    },
-    {
-        "id": 2,
-        "nombre": "Pisco Sour",
-        "tipoBebida": "ALCOHOLICA",
-        "volumenMl": 500,
-        "stock": 25,
-        "gradosAlcohol": 18.0,
-        "certificada": true,
-        "azucarPorLitro": null,
-        "ventaRestringida": false
-    },
-    {
-        "id": 3,
-        "nombre": "Chicha",
-        "tipoBebida": "SIN_ALCOHOL",
-        "volumenMl": 1000,
-        "stock": 60,
-        "gradosAlcohol": null,
-        "certificada": null,
-        "azucarPorLitro": 95,
-        "ventaRestringida": false
-    },
-    {
-        "id": 4,
-        "nombre": "Mote con Huesillo",
-        "tipoBebida": "SIN_ALCOHOL",
-        "volumenMl": 400,
-        "stock": 50,
-        "gradosAlcohol": null,
-        "certificada": null,
-        "azucarPorLitro": 70,
-        "ventaRestringida": false
-    }
-]
-
 function VistaBebida(){
 
     const [bebidas, setBebidas] = useState([])
