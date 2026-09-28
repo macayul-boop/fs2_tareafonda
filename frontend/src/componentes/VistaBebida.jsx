@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import FormularioBebida from "./FormularioBebida"
 import Bebida from "./Bebida"
 import DetalleBebida from "./DetalleBebida"
+import Buscador from "./Buscador"
 import { listarBebidas, crearBebida, actualizarBebida, eliminarBebidaApi } from "../services/api"
 
 function VistaBebida(){
@@ -13,7 +14,7 @@ function VistaBebida(){
     useEffect(()=>{
         listarBebidas()
             .then((data)=>{
-                setBebidas(data)
+                setBebidas(data || [])
             })
             .catch((err)=> console.error("Hay un error: ", err))
     }, [])    
@@ -51,6 +52,20 @@ function VistaBebida(){
         }
     }
 
+    const buscarBebida = async(nombreBebida = null)=>{
+        try {
+            if(nombreBebida != null){
+                const listaBebida = await listarBebidas(nombreBebida)
+                setBebidas(listaBebida)
+            }else{
+                const listaBebida = await listarBebidas();
+                setBebidas(listaBebida)
+            }
+        } catch (error) {
+            console.log("Hay un error en el metodo buscador: ", error)
+        }
+    }
+
     // Mostrar los detalles de una bebida
     const detalleProducto = (producto) =>{
         const productoExiste = verBebida.find(p => p.id === producto.id)
@@ -70,13 +85,14 @@ function VistaBebida(){
                 <FormularioBebida onGuardar={guardarProducto} bebidaEditar={bebidaEditada} cancelarEditar={cancelarEditar}/>
             </section>
             <section className="shadow-sm p-4 rounded-2xl">
-                <div className="w-full h-10 mt-10 bg-[#9d72e5] text-white grid grid-cols-4 font-semibold px-2">
+                <Buscador onBuscar={buscarBebida}/>
+                <div className="w-full h-10 mt-5 bg-[#9d72e5] text-white grid grid-cols-4 font-semibold px-2">
                     <p className="flex items-center">Nombre</p>
                     <p className="flex items-center">Tipo bebida</p>
                     <p className="flex items-center">Volumen ml</p>
                 </div>
                 <div className="">
-                    {bebidas.map((value, key)=>(
+                    {bebidas?.map((value, key)=>(
                         <Bebida 
                             key={key} 
                             id={value.id} 

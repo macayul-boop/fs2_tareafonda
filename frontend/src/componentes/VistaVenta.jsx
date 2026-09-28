@@ -13,7 +13,7 @@ function VistaVenta(){
     useEffect(()=>{
         listarVentas()
             .then((data) => {
-                setListaVenta(data)
+                setListaVenta(data || [])
             })
             .catch((err)=> console.error("Hay un error en la carga inical de los datos en vista venta: ", err))
     }, [])
@@ -23,7 +23,7 @@ function VistaVenta(){
         try {
             setError('')
             const ventaGuardada = await registrarVenta(datos);
-            setListaVenta([...listaVenta, ventaGuardada])
+            setListaVenta([...(listaVenta || []), ventaGuardada])
         } catch (error) {
             console.error("Hay un error en vista venta: ", error)
             setError(error.message)

@@ -22,10 +22,14 @@ async function pedir(ruta, opciones = {}) {
   return res.status === 204 ? null : res.json();
 }
 
-export function listarBebidas(nombre) {
+export function listarBebidas(nombre = null) {
   // TODO: GET /bebidas, agregando ?nombre= cuando venga el filtro.
   // El filtrado lo hace el servidor, no este archivo.
-  return pedir('/bebida')
+  if(nombre != null){
+    return pedir(`/bebida?nombre=${nombre }`)
+  }else{
+    return pedir('/bebida')
+  }
 }
 
 export function crearBebida(datos) {
