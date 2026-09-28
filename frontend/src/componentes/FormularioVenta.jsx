@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import InputTexto from "./InputTexto"
 import {listarBebidas} from "../services/api" 
 
-function FormularioVenta({onGuardar}){
+function FormularioVenta({onGuardar, errorBackend, limpiarErrorBackend}){
 
     const [bebida, setBebida] = useState('')
     const [cantidad, setCantidad] = useState('')
@@ -20,6 +20,8 @@ function FormularioVenta({onGuardar}){
     const limpiarCampos = ()=>{
         setBebida('')
         setCantidad('')
+        setErrores({})
+        limpiarErrorBackend()
     }
 
     // Crear una venta
@@ -80,7 +82,7 @@ function FormularioVenta({onGuardar}){
             </div>
             <section className="w-full flex justify-between gap-2.5 pt-5">
                 <div>
-
+                    {errorBackend && <span className="text-red-500">{errorBackend}</span>}
                 </div>
                 <div className="flex gap-2.5">
                     {

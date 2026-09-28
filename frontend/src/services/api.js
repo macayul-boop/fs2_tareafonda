@@ -13,7 +13,10 @@ async function pedir(ruta, opciones = {}) {
   if (!res.ok) {
     // TODO: leer el cuerpo del error (400 trae los campos, 409 trae el motivo)
     // y lanzarlo para que el componente pueda mostrarlo.
-    throw new Error(`HTTP ${res.status}`);
+
+    const errorData = await res.json().catch(()=> null)
+
+    throw new Error(errorData?.mensaje || 'Ocurrio un error en la peticion!');
   }
 
   return res.status === 204 ? null : res.json();

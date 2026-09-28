@@ -91,9 +91,12 @@ function VistaBebida(){
                 </div>
                 <section className="mt-10 flex flex-col gap-4">
                     {verBebida.map((value, key)=>(
-                        <DetalleBebida bebida={value} key={key} onOcultar={()=> ocultarProducto(value.id)}/>
+                        <DetalleBebida key={key} bebida={value} onOcultar={()=> ocultarProducto(value.id)}/>
                     ))}
                 </section>
+            </section>
+            <section>
+                
             </section>
         </section>
     )
