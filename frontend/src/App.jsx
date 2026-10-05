@@ -1,5 +1,3 @@
-import { Container } from "react-bootstrap";
-
 /**
  * Estructura sugerida de la interfaz. Cada bloque es un componente propio
  * dentro de src/components/:
@@ -12,14 +10,25 @@ import { Container } from "react-bootstrap";
  * Ningun componente calcula precios ni decide si una venta se autoriza:
  * esos datos vienen del backend.
  */
-export default function App() {
-  return (
-    <Container className="py-4">
-      <h1 className="mb-1">Fonda San Belarmino</h1>
-      <p className="text-muted">Control de bebidas y ventas</p>
+import { useState } from 'react';
+import Header from './componentes/Header';
+import VistaBebida from './componentes/VistaBebida';
+import VistaVenta from './componentes/VistaVenta';
+import './app.css'
 
-      {/* TODO: montar aqui los componentes de la interfaz. */}
-      <p>Frontend pendiente. Revisa el enunciado en README.md.</p>
-    </Container>
+export default function App() {
+
+  const [seccion, setSeccion] = useState('bebida')
+
+  return (
+    <div className='w-full h-screen text-[#0f172a]'>
+      <Header onClick1={()=> setSeccion('bebida')} onCLick2={()=> setSeccion('venta')} seccionActiva={seccion}/>
+      
+      <main className='w-full px-5'>
+        {seccion === 'bebida' && <VistaBebida/>}
+        {seccion === 'venta' && <VistaVenta/>}
+      </main>
+
+    </div>
   );
 }

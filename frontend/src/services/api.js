@@ -13,37 +13,62 @@ async function pedir(ruta, opciones = {}) {
   if (!res.ok) {
     // TODO: leer el cuerpo del error (400 trae los campos, 409 trae el motivo)
     // y lanzarlo para que el componente pueda mostrarlo.
-    throw new Error(`HTTP ${res.status}`);
+
+    const errorData = await res.json().catch(()=> null)
+
+    throw new Error(errorData?.mensaje || 'Ocurrio un error en la peticion!');
   }
 
   return res.status === 204 ? null : res.json();
 }
 
-export function listarBebidas(nombre) {
+export function listarBebidas(nombre = null) {
   // TODO: GET /bebidas, agregando ?nombre= cuando venga el filtro.
   // El filtrado lo hace el servidor, no este archivo.
+  if(nombre != null){
+    return pedir(`/bebida?nombre=${nombre }`)
+  }else{
+    return pedir('/bebida')
+  }
 }
 
 export function crearBebida(datos) {
   // TODO: POST /bebidas
+  return pedir('/bebida', {
+    method: 'POST',
+    body: JSON.stringify(datos)
+  })  
+
 }
 
 export function actualizarBebida(id, datos) {
   // TODO: PUT /bebidas/{id}
+  return pedir(`/bebida/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(datos)
+  })
 }
 
-export function eliminarBebida(id) {
+export function eliminarBebidaApi(id) {
   // TODO: DELETE /bebidas/{id}
+  return pedir(`/bebida/${id}`, {
+    method: 'DELETE'
+  })
 }
 
 export function restringirVenta(id) {
   // TODO: PATCH /bebidas/{id}/restriccion
 }
 
-export function registrarVenta(bebidaId, unidades) {
+export function registrarVenta(datos) {
   // TODO: POST /ventas
+  return pedir('/venta', {
+    method: 'POST',
+    body: JSON.stringify(datos)
+  })
 }
 
 export function listarVentas() {
   // TODO: GET /ventas
+  return pedir('/venta')
 }

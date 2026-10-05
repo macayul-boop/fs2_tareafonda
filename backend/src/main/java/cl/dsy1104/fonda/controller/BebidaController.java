@@ -13,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/bebida")
+@CrossOrigin(origins = "http://localhost:5173")
 @RequiredArgsConstructor
 public class BebidaController {
 
@@ -63,7 +64,7 @@ public class BebidaController {
     @DeleteMapping("/{idBebida}")
     public ResponseEntity<Void> eliminarBebida(@PathVariable Long idBebida){
         bebidaService.eliminarBebida(idBebida);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 }
